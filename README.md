@@ -57,13 +57,23 @@ df$Sub_metering_3 <- as.numeric(as.character(df$Sub_metering_3))
 ##My Plot 1
 
 ```r
-plot1 <- function() {
-        hist(df$Global_active_power, main = paste("Global Active Power"), col="red", xlab="Global Active Power (kilowatts)")
-        dev.copy(png, file="plot1.png", width=480, height=480)
-        dev.off()
-        cat("Plot1.png has been saved in", getwd())
+plot1 <- function(file) {
+  
+  power <- read.table(file, header=T, sep=";")
+  power$Date <- as.Date(power$Date, format="%d/%m/%Y")
+  
+  df <- power[(power$Date=="2007-02-01") | (power$Date=="2007-02-02"),]
+  
+  df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
+  
+  hist(df$Global_active_power, main = paste("Global Active Power"), col="red", xlab="Global Active Power (kilowatts)")
+  
+  dev.copy(png, file="plot1.png", width=480, height=480)
+  dev.off()
+  cat("Plot1.png has been saved in", getwd())
 }
-plot1()
+
+plot1("household_power_consumption.txt")
 ```
 
 ![my plot 1 ](./plot1.png) 
@@ -141,33 +151,45 @@ plot3("household_power_consumption.txt")
 ##My Plot 4
 
 ```r
-plot4 <- function() {
-        par(mfrow=c(2,2))
-        
-        ##PLOT 1
-        plot(df$timestamp,df$Global_active_power, type="l", xlab="", ylab="Global Active Power")
-        ##PLOT 2
-        plot(df$timestamp,df$Voltage, type="l", xlab="datetime", ylab="Voltage")
-        
-        ##PLOT 3
-        plot(df$timestamp,df$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
-        lines(df$timestamp,df$Sub_metering_2,col="red")
-        lines(df$timestamp,df$Sub_metering_3,col="blue")
-        legend("topright", col=c("black","red","blue"), c("Sub_metering_1  ","Sub_metering_2  ", "Sub_metering_3  "),lty=c(1,1), bty="n", cex=.5) #bty removes the box, cex shrinks the text, spacing added after labels so it renders correctly
-        
-        #PLOT 4
-        plot(df$timestamp,df$Global_reactive_power, type="l", xlab="datetime", ylab="Global_reactive_power")
-        
-        #OUTPUT
-        dev.copy(png, file="plot4.png", width=480, height=480)
-        dev.off()
-        cat("plot4.png has been saved in", getwd())
+plot4 <- function(file) {
+  power <- read.table(file, header=T, sep=";")
+  power$Date <- as.Date(power$Date, format="%d/%m/%Y")
+  df <- power[(power$Date=="2007-02-01") | (power$Date=="2007-02-02"),]
+  
+  df$Sub_metering_1 <- as.numeric(as.character(df$Sub_metering_1))
+  df$Sub_metering_2 <- as.numeric(as.character(df$Sub_metering_2))
+  df$Sub_metering_3 <- as.numeric(as.character(df$Sub_metering_3))
+  df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
+  df$Global_reactive_power <- as.numeric(as.character(df$Global_reactive_power))
+  df$Voltage <- as.numeric(as.character(df$Voltage))
+  
+  df <- transform(df, timestamp=as.POSIXct(paste(Date, Time)), "%d/%m/%Y %H:%M:%S")
+  
+  par(mfrow=c(2,2))
+  
+  ##PLOT 1
+  plot(df$timestamp,df$Global_active_power, type="l", xlab="", ylab="Global Active Power")
+  ##PLOT 2
+  plot(df$timestamp,df$Voltage, type="l", xlab="datetime", ylab="Voltage")
+  
+  ##PLOT 3
+  plot(df$timestamp,df$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
+  lines(df$timestamp,df$Sub_metering_2,col="red")
+  lines(df$timestamp,df$Sub_metering_3,col="blue")
+  legend("topright", col=c("black","red","blue"), c("Sub_metering_1  ","Sub_metering_2  ", "Sub_metering_3  "),lty=c(1,1), bty="n", cex=.5) #bty removes the box, cex shrinks the text, spacing added after labels so it renders correctly
+  
+  #PLOT 4
+  plot(df$timestamp,df$Global_reactive_power, type="l", xlab="datetime", ylab="Global_reactive_power")
+  
+  
+  dev.copy(png, file="plot4.png", width=480, height=480)
+  dev.off()
+  cat("plot4.png has been saved in", getwd())
 }
-plot4()
+plot4("household_power_consumption.txt")
 ```
 
-![plot of chunk unnamed-chunk-5](./Plotting_1_files/figure-html/unnamed-chunk-5.png) 
-
+![my plot 4 ](./plot4.png) 
 ```
 ## plot4.png has been saved in https://github.com/ejcrotty/datasciencecoursera-Exploratory-Data-Analysis-Projects-Plotting-1
 ```
