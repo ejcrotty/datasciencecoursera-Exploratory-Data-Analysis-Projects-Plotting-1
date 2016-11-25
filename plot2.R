@@ -21,9 +21,12 @@ plot2 <- function(file) {
   
   df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
   df <- transform(df, timestamp=as.POSIXct(paste(Date, Time)), "%d/%m/%Y %H:%M:%S")
-  
+
+## make tthe plot  
   plot(df$timestamp,df$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
-  
+##
+## copy plot to png
+##  
   dev.copy(png, file="plot2.png", width=480, height=480)
   dev.off()
   cat("plot2.png has been saved in", getwd())
