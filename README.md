@@ -68,26 +68,35 @@ plot1()
 
 ![my plot 1 ](./plot1.png) 
 
-<img src="https://raw.githubusercontent.com/rdpeng/ExData_Plotting1/master/figure/unnamed-chunk-4.png"/>
+
 ```
 ## Plot1.png has been saved in https://github.com/ejcrotty/datasciencecoursera-Exploratory-Data-Analysis-Projects-Plotting-1/
 ```
-##Plot 2
+##Plot 2 - Example
 <img src="https://raw.githubusercontent.com/rdpeng/ExData_Plotting1/master/figure/unnamed-chunk-3.png"/>
 
 ##My Plot 2
 
 ```r
-plot1 <- function() {
-        plot(df$timestamp,df$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
-        dev.copy(png, file="plot2.png", width=480, height=480)
-        dev.off()
-        cat("plot2.png has been saved in", getwd())
+plot2 <- function(file) {
+  power <- read.table(file, header=T, sep=";")
+  power$Date <- as.Date(power$Date, format="%d/%m/%Y")
+  df <- power[(power$Date=="2007-02-01") | (power$Date=="2007-02-02"),]
+  
+  df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
+  df <- transform(df, timestamp=as.POSIXct(paste(Date, Time)), "%d/%m/%Y %H:%M:%S")
+  
+  plot(df$timestamp,df$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+  
+  dev.copy(png, file="plot2.png", width=480, height=480)
+  dev.off()
+  cat("plot2.png has been saved in", getwd())
 }
-plot1()
+
+plot2("household_power_consumption.txt")
 ```
 
-![plot of chunk unnamed-chunk-3](./Plotting_1_files/figure-html/unnamed-chunk-3.png) 
+![my plot 2 ](./plot2.png) 
 
 ```
 ## plot2.png has been saved in https://github.com/ejcrotty/datasciencecoursera-Exploratory-Data-Analysis-Projects-Plotting-1
