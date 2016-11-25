@@ -22,9 +22,13 @@ plot1 <- function(file) {
   df <- power[(power$Date=="2007-02-01") | (power$Date=="2007-02-02"),]
   
   df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
-  
+
+##  Simple histogram
+##  
   hist(df$Global_active_power, main = paste("Global Active Power"), col="red", xlab="Global Active Power (kilowatts)")
-  
+
+## Copy plot to png file
+##  
   dev.copy(png, file="plot1.png", width=480, height=480)
   dev.off()
   cat("Plot1.png has been saved in", getwd())
