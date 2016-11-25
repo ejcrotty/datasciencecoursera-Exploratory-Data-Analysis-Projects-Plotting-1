@@ -66,8 +66,9 @@ plot1 <- function() {
 plot1()
 ```
 
-![plot of chunk unnamed-chunk-3](./Plotting_1_files/figure-html/unnamed-chunk-3png) 
+![my plot 1 ](./plot1.png) 
 
+<img src="https://raw.githubusercontent.com/rdpeng/ExData_Plotting1/master/figure/unnamed-chunk-4.png"/>
 ```
 ## Plot1.png has been saved in https://github.com/ejcrotty/datasciencecoursera-Exploratory-Data-Analysis-Projects-Plotting-1/
 ```
