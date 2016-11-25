@@ -51,8 +51,8 @@ df$Sub_metering_1 <- as.numeric(as.character(df$Sub_metering_1))
 df$Sub_metering_2 <- as.numeric(as.character(df$Sub_metering_2))
 df$Sub_metering_3 <- as.numeric(as.character(df$Sub_metering_3))
 ```
-##Plot 1
-![alt text](https://raw.githubusercontent.com/rdpeng/ExData_Plotting1/master/figure/unnamed-chunk-2.png)
+##Plot 1 - Example
+![plot of chunk unnamed-chunk-2](https://raw.githubusercontent.com/rdpeng/ExData_Plotting1/master/figure/unnamed-chunk-2.png)
 
 ##My Plot 1
 
@@ -66,7 +66,7 @@ plot1 <- function() {
 plot1()
 ```
 
-![plot of chunk unnamed-chunk-2](./Plotting_1_files/figure-html/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-3](./Plotting_1_files/figure-html/unnamed-chunk-3png) 
 
 ```
 ## Plot1.png has been saved in https://github.com/ejcrotty/datasciencecoursera-Exploratory-Data-Analysis-Projects-Plotting-1/
